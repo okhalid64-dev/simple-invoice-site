@@ -21,4 +21,12 @@ paths = [
   '''(^|/)docs/[^/]+-spec\.md$''',
   # Historical file (deleted) whose invite-code sample tripped the generic rule
   '''AddFamilyView\.swift$''',
+  # Unit-test fixtures (public iCloud shared-album tokens used as parser inputs)
+  '''(^|/)scripts/_units_[^/]+\.mjs$''',
+]
+# Code that builds or strips PEM armour, matched on shape: a header followed immediately by a
+# template interpolation or a regex alternation can only be code, never key material.
+regexes = [
+  '''BEGIN PRIVATE KEY-----\\n\$\{''',
+  '''BEGIN PRIVATE KEY-----\|-----END PRIVATE KEY-----''',
 ]
