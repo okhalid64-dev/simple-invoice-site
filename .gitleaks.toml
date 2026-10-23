@@ -1,0 +1,24 @@
+# gitleaks config (picked up automatically from the repo root).
+# Allow-list is BY PATH only, never by secret shape, so a real server key dropped anywhere
+# else still fails the check.
+title = "NextLayer secret-scan allow-list"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known non-secrets"
+paths = [
+  # IDE session ids, not credentials
+  '''(^|/)\.idea/''',
+  # Firebase client configs: the Android/iOS API keys inside are public by design
+  # (restricted by package name + signing certificate in Cloud console, not by secrecy)
+  '''(^|/)google-services\.json$''',
+  '''(^|/)GoogleService-Info\.plist$''',
+  # Maps / Places keys live in the manifest by platform convention; same restriction model
+  '''(^|/)AndroidManifest\.xml$''',
+  # Spec documents that quote the client config
+  '''(^|/)docs/[^/]+-spec\.md$''',
+  # Historical file (deleted) whose invite-code sample tripped the generic rule
+  '''AddFamilyView\.swift$''',
+]
